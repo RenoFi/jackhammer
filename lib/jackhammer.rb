@@ -2,7 +2,9 @@
 
 require 'logger'
 require 'forwardable'
+require 'yaml'
 require 'bunny'
+require 'jackhammer/version'
 require 'jackhammer/log'
 require 'jackhammer/null_exception_adapter'
 require 'jackhammer/configuration'

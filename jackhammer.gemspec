@@ -2,7 +2,7 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jackhammer/version'
+require 'jackhammer'
 
 Gem::Specification.new do |spec|
   spec.name          = 'jackhammer'
@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.74'
   spec.add_development_dependency 'rubocop-performance', '~> 1.4.1'
+  spec.add_development_dependency 'byebug'
 end

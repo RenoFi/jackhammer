@@ -5,6 +5,8 @@ require 'jackhammer'
 require 'jackhammer/cli'
 require 'bunny-mock'
 require 'json'
+require 'byebug'
+require 'ostruct'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'
@@ -32,5 +34,18 @@ class TestAsyncHandlerClass
 
   def self.perform_async(_msg)
     true
+  end
+end
+
+class TestApp < Jackhammer::Server
+  configure do |config|
+    config.environment = :test
+    config.yaml_config = './spec/support/test.yml'
+  end
+end
+
+class Jackhammer::TestCLI < Jackhammer::CLI
+  def server
+    OpenStruct.new start: true
   end
 end

@@ -1,0 +1,6 @@
+---
+test:
+  renofi:
+    queues:
+      one: one
+      two: two

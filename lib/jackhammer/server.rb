@@ -3,9 +3,9 @@
 module Jackhammer
   class Server
     def self.configure
-      Jackhammer.configure do |j|
-        yield(j)
-        j.server = self
+      Jackhammer.configure do |config|
+        yield config
+        config.server = self
       end
     end
 

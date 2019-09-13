@@ -4,9 +4,9 @@ module Jackhammer
   class CLI
     attr_reader :logger, :opts
 
-    def initialize
+    def initialize(options = {})
       @logger = Logger.new STDERR
-      @opts = { require: './config/application' }
+      @opts = { require: './config/application' }.merge(options)
     end
 
     def parse(argv = ARGV)
@@ -26,7 +26,11 @@ module Jackhammer
     def run
       require opts[:require]
       Log.info "Booting up Jackhammer v#{VERSION}"
-      Jackhammer.configuration.server.start
+      server.start
+    end
+
+    def server
+      Jackhammer.configuration.server
     end
   end
 end

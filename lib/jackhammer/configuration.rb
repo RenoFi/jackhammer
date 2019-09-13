@@ -28,7 +28,7 @@ module Jackhammer
     end
 
     def yaml
-      environment = Jackhammer.configuration.environment
+      environment = Jackhammer.configuration.environment.to_s
       YAML.load_file(Jackhammer.configuration.yaml_config)[environment]
     end
   end
