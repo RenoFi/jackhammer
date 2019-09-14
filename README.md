@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/RenoFi/jackhammer.svg?branch=master)](https://travis-ci.org/RenoFi/jackhammer)
+[![GitHub issues](https://img.shields.io/github/issues/renofi/jackhammer)](https://github.com/renofi/jackhammer/issues)
+[![GitHub license](https://img.shields.io/github/license/renofi/jackhammer)](https://github.com/RenoFi/jackhammer/blob/master/LICENSE.txt)
+
 # Jackhammer
 
 Jackhammer is an opinionated, configurable facade over the RabbitMQ Bunny
