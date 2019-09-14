@@ -12,7 +12,6 @@ require 'jackhammer/message_receiver'
 require 'jackhammer/queue'
 require 'jackhammer/topic'
 require 'jackhammer/topic_manager'
-require 'jackhammer/publish'
 require 'jackhammer/server'
 
 module Jackhammer
