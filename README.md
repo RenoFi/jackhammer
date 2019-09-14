@@ -7,9 +7,7 @@ module.
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'jackhammer'
-```
+    gem 'jackhammer'
 
 And then execute:
 
@@ -21,10 +19,12 @@ Or install it yourself as:
 
 ## Usage
 
+### Quick Start
+
 Create a YAML file to configure topics and queues your Jackhammer::Server instance
 will subscribe to when using the executable.
 
-```YAML
+```yaml
 # config/jackhammer.yml
 ---
 default: &default
@@ -42,7 +42,7 @@ default: &default
 development:
   <<: *default
 
-development:
+test:
   <<: *default
 
 production:
@@ -51,20 +51,21 @@ production:
 
 Configure your subscription server by sublcassing `Jackhammer::Server`.
 
-```Ruby
+```ruby
 # config/application.rb
 require 'jackhammer'
 
 module MyApp
   class Server < Jackhammer::Server
-    Jackhammer.configure do |jack|
-      jack.connection_options = {}
-      jack.connection_url =     nil
-      jack.environment =        ENV['RACK_ENV'] || :development
-      jack.exception_adapter =  NullExceptionAdapter.new
-      jack.logger =             Logger.new(IO::NULL)
-      jack.publish_options =    { mandatory: true, persistent: true }
-      jack.yaml_config =        "config/jackhammer.yml"
+    configure do |config|
+      # these are the default options
+      config.connection_options = {}
+      config.connection_url     = nil
+      config.environment        = ENV['RACK_ENV'] || :development
+      config.exception_adapter  = Jackhammer::NullExceptionAdapter.new
+      config.logger             = Logger.new(IO::NULL)
+      config.publish_options    = { mandatory: true, persistent: true }
+      config.yaml_config        = "config/jackhammer.yml"
     end
   end
 end
@@ -72,9 +73,74 @@ end
 
 Start the subscription server to read the YAML and subscribe to topic queues.
 
+    $ bundle exec jackhammer
+
+### Topic Exchange Configuration
+
+The YAML file configures [RabbitMQ Topic Exchanges](https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchange-topic).
+
+At the root are environment names used to load environment specific
+configuration. Below that are the names of topic exchanges.  Each topic exchange
+can define `durable` and `auto_delete` options used when creating the exchange.
+Additionally, each topic exchange defines a `queues` mapping.  Each mapping
+nested under the `queues` key represents options used by either Jackhammer or
+Bunny.
+
+Exchange topic queue options passed to Bunny during [queue initialization](http://reference.rubybunny.info/Bunny/Queue.html#initialize-instance_method):
+
+- **durable** default: false — Should this queue be durable?
+- **auto_delete** default: false — Should this queue be automatically deleted when the last consumer disconnects?
+- **exclusive** default: false — Should this queue be exclusive (only can be used by this connection, removed when the connection is closed)?
+
+The **routing_key** is used as an option when binding the Bunny::Queue and
+Bunny::Exchange.
+
+Exchange topic queue options used by Jackhammer:
+
+- **handler** A string representing the name of a class that is intended to
+  receive messages delivered to the queue subscriber.
+
+The handler class must implement at least a `.call` method. If the class
+responds to `.perform_async` then that will be called instead of `.call`.
+
+```ruby
+module MyApp
+  class SouthAmericaHandler
+    def self.call(message)
+      puts message
+    end
+  end
+end
 ```
-$ bundle exec jackhammer -r config/application.rb
-```
+
+### Executable
+
+By default the executable will load `config/application.rb`. If you define
+and configure your Jackhammer server somewhere else, use the `-r path/file.rb`
+option on the command line.
+
+    $ bundle exec jackhammer -r config/rabbitmq_application.rb
+
+### Server  Configuration
+
+The `configure` block must be placed inside of your application class even if
+you choose not to change any default configuration.
+
+The intent of the options might not be obvious by looking at the name.
+- **connection_options** passed into `Bunny.new`.
+- **connection_url** passed into `Bunny.new`.
+- **environment** specifies the section of YAML config to load.
+- **exception_adapter** exceptions caught when handling received messages are
+  forwarded to the adapter object. The adapter must implement
+  `.capture(exception)`.
+- **logger** defines a logger the Jackhammer module should use.
+- **publish_options** defines options passed to all messages published (can be
+  overridden by passing the same options as arguments in your code).
+- **yaml_config** defines the file location of the Topic Exchange YAML
+  configuration file.
+
+You can find defaults specified in the Jackhammer::Configuration class
+constructor.
 
 ## Development
 
@@ -84,7 +150,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jackhammer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/renofi/jackhammer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
