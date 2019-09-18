@@ -66,7 +66,7 @@ module MyApp
       config.connection_options = {}
       config.connection_url     = nil
       config.environment        = ENV['RACK_ENV'] || :development
-      config.exception_adapter  = Jackhammer::NullExceptionAdapter.new
+      config.exception_adapter  = proc { |e| raise e }
       config.logger             = Logger.new(IO::NULL)
       config.publish_options    = { mandatory: true, persistent: true }
       config.yaml_config        = "config/jackhammer.yml"
@@ -136,7 +136,7 @@ The intent of the options might not be obvious by looking at the name.
 - **environment** specifies the section of YAML config to load.
 - **exception_adapter** exceptions caught when handling received messages are
   forwarded to the adapter object. The adapter must implement
-  `.capture(exception)`.
+  `.call(exception)`.
 - **logger** defines a logger the Jackhammer module should use.
 - **publish_options** defines options passed to all messages published (can be
   overridden by passing the same options as arguments in your code).

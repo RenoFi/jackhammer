@@ -17,7 +17,7 @@ module Jackhammer
       @connection_options = {}
       @connection_url = ENV['RABBITMQ_URL']
       @environment = ENV['RACK_ENV'] || :development
-      @exception_adapter = NullExceptionAdapter.new
+      @exception_adapter = proc { |e| raise e }
       @logger = Logger.new IO::NULL
       @publish_options = { mandatory: true, persistent: true }
       @yaml_config = './config/jackhammer.yml'

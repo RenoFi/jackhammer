@@ -13,7 +13,7 @@ module Jackhammer
         @handler_object.call content
       rescue StandardError => e
         Log.error e
-        Jackhammer.configuration.exception_adapter.capture e
+        Jackhammer.configuration.exception_adapter.call e
       end
     end
   end

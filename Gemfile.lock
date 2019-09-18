@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jackhammer (0.1.1)
+    jackhammer (0.2.0)
       bunny (~> 2.14)
 
 GEM
