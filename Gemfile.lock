@@ -9,7 +9,7 @@ GEM
   specs:
     amq-protocol (2.3.0)
     ast (2.4.0)
-    bunny (2.14.2)
+    bunny (2.14.3)
       amq-protocol (~> 2.3, >= 2.3.0)
     bunny-mock (1.7.0)
       bunny (>= 1.7)
