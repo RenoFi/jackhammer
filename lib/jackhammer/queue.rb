@@ -9,7 +9,8 @@ module Jackhammer
 
     def subscribe
       @queue.subscribe do |delivery_info, properties, content|
-        Log.debug [delivery_info.inspect, properties.inspect, content].join(' || ')
+        Log.info { [delivery_info.inspect, properties.inspect].join(' || ') }
+        Log.debug { content }
         @handler_object.call content
       rescue StandardError => e
         Log.error e

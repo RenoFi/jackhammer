@@ -8,7 +8,7 @@ module Jackhammer
       def_delegators :instance, :debug, :info, :warn, :error, :critical
 
       def instance
-        @instance ||= Jackhammer.configuration.logger
+        Jackhammer.configuration.logger
       end
     end
   end
