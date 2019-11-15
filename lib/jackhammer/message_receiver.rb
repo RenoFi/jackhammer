@@ -11,6 +11,8 @@ module Jackhammer
     end
 
     def call(message)
+      Log.info { 'message received for ' + handler_class.to_s }
+      Log.debug { message.to_s }
       handler = Object.const_get(handler_class)
       if handler.respond_to?(:perform_async)
         handler.perform_async message
