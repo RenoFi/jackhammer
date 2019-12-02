@@ -2,8 +2,11 @@ require:
   - rubocop-performance
 
 inherit_from:
-  - https://raw.githubusercontent.com/RenoFi/rubocop/master/ruby.yml
+  - https://raw.githubusercontent.com/RenoFi/rubocop/master/0.77.yml
 
 AllCops:
-  TargetRailsVersion: 5.2
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.5
+
+Naming/FileName:
+  Exclude:
+    - 'lib/*.rb'
