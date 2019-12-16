@@ -1,0 +1,1 @@
+InvalidConfigError = Class.new(StandardError)
