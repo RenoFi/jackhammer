@@ -10,19 +10,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Scott Serok']
   spec.email         = ['scott@renofi.com']
 
-  spec.summary       = 'Jackhammer is an opinionated facde over RabbitMQ Bunny'
-  spec.description   = spec.summary
+  spec.summary       = 'Jackhammer is an opinionated facade over RabbitMQ Bunny'
   spec.homepage      = 'https://github.com/renofi/jackhammer'
   spec.license       = 'MIT'
 
   spec.metadata['homepage_uri']     = spec.homepage
   spec.metadata['source_code_uri']  = spec.homepage
-  spec.metadata['changelog_uri']    = spec.homepage
 
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(bin/|spec/|\.rub)}) }
   end
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
