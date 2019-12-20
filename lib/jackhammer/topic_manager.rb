@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Jackhammer
   class TopicManager
     class << self

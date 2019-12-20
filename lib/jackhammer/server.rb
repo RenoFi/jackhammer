@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Jackhammer
   class Server
     def self.configure

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Jackhammer
   class Topic
     def initialize(name:, options:, queue_config:)

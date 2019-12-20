@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Jackhammer::MessageReceiver do
   describe '#call' do
     let(:receiver) { described_class.new(handler_class) }

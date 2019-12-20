@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Jackhammer
   # An object meant to be instantiated once but used on each payload received
   # via the #call method

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RSpec.describe Jackhammer::TopicManager do
   describe '.topics' do
     subject { described_class.topics }
