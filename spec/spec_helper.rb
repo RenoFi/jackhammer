@@ -37,15 +37,17 @@ class TestAsyncHandlerClass
   end
 end
 
-class TestApp < Jackhammer::Server
-  configure do |config|
-    config.environment = :test
-    config.yaml_config = './spec/support/test.yml'
+module Jackhammer
+  class TestApp < Server
+    configure do |config|
+      config.environment = :test
+      config.yaml_config = './spec/support/test.yml'
+    end
   end
-end
 
-class Jackhammer::TestCLI < Jackhammer::CLI
-  def server
-    OpenStruct.new start: true
+  class TestCLI < CLI
+    def server
+      OpenStruct.new start: true
+    end
   end
 end
