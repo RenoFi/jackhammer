@@ -6,7 +6,7 @@ module Jackhammer
 
     def initialize(options = {})
       @logger = Logger.new STDERR
-      @opts = { require: './config/application' }.merge(options)
+      @opts = { require: './config/environment' }.merge(options)
     end
 
     def parse(argv = ARGV)

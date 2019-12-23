@@ -56,7 +56,7 @@ production:
 Configure your subscription server by sublcassing `Jackhammer::Server`.
 
 ```ruby
-# config/application.rb
+# config/environment.rb
 require 'jackhammer'
 
 module MyApp
@@ -119,7 +119,7 @@ end
 
 ### Executable
 
-By default the executable will load `config/application.rb`. If you define
+By default the executable will load `config/environment.rb`. If you define
 and configure your Jackhammer server somewhere else, use the `-r path/file.rb`
 option on the command line.
 
