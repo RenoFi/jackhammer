@@ -24,7 +24,13 @@ RSpec.describe Jackhammer::TopicManager do
                 'durable' => true,
                 'auto_delete' => false,
                 'handler' => 'FakeClient',
-                'routing_key' => 'first_queue.event'
+                'routing_key' => 'first_queue.event_a'
+              },
+              'second_queue' => {
+                'durable' => false,
+                'auto_delete' => false,
+                'handler' => 'FakeClient',
+                'routing_key' => 'first_queue.event_b'
               }
             }
           }
@@ -33,9 +39,18 @@ RSpec.describe Jackhammer::TopicManager do
       let(:config_double) { double(yaml: yaml) }
 
       specify { expect(subject).to be_a Hash }
+      specify { expect(subject.keys).to eq [:my_topic] }
 
-      describe '.topics[:my_topic]' do
+      describe '[:my_topic]' do
         specify { expect(subject[:my_topic]).to be_a Jackhammer::Topic }
+
+        describe '#queues#first' do
+          specify { expect(subject[:my_topic].queues.first).to be_a Jackhammer::Queue }
+        end
+
+        describe '#queues#size' do
+          specify { expect(subject[:my_topic].queues.size).to eq 2 }
+        end
       end
     end
   end

@@ -42,6 +42,12 @@ default: &default
         exclusive: false
         handler: "MyApp::SouthAmericaHandler"
         routing_key: "americas.south.#"
+      americas.north:
+        auto_delete: true
+        durable: false
+        exclusive: false
+        handler: "MyApp::NorthAmericaHandler"
+        routing_key: "americas.north.#"
 
 development:
   <<: *default
