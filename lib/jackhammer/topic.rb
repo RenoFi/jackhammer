@@ -21,9 +21,9 @@ module Jackhammer
 
       @queues = @queue_config.map do |name, options|
         handler = MessageReceiver.new(options.delete('handler'))
-        routing = options.delete 'routing_key'
-        queue = Jackhammer.channel.queue name, options
-        Queue.new topic: @topic, queue: queue, handler: handler, routing: routing
+        routing = options.delete('routing_key') || fail(InvalidConfigError, "routing_key not found in #{options.inspect}")
+        queue = Jackhammer.channel.queue(name, options)
+        Queue.new(topic: @topic, queue: queue, handler: handler, routing: routing)
       end
     end
   end
