@@ -1,8 +1,11 @@
 module Jackhammer
   class Topic
+    QUEUE_NAME_KEY = 'queue_name'.freeze
+    ROUTING_KEY_KEY = 'routing_key'.freeze
+
     def initialize(name:, options:, queue_config:)
       @topic = Jackhammer.channel.topic name, options
-      @queue_config = queue_config
+      @queue_config = normalize_queue_config(queue_config)
     end
 
     def subscribe_queues
@@ -19,12 +22,32 @@ module Jackhammer
     def queues
       return @queues if @queues
 
-      @queues = @queue_config.map do |name, options|
+      @queues = @queue_config.map do |options|
         handler = MessageReceiver.new(options.delete('handler'))
-        routing = options.delete 'routing_key'
-        queue = Jackhammer.channel.queue name, options
-        Queue.new topic: @topic, queue: queue, handler: handler, routing: routing
+        name = fetch_and_delete_key(options, QUEUE_NAME_KEY)
+        routing = fetch_and_delete_key(options, ROUTING_KEY_KEY)
+        queue = Jackhammer.channel.queue(name, options)
+        Queue.new(topic: @topic, queue: queue, handler: handler, routing: routing)
       end
+    end
+
+    private
+
+    # `queue_config` can be either:
+    # - an array of options containing `queue_name` key
+    # or
+    # - a hash containing `queue_name => options` pairs
+    def normalize_queue_config(config)
+      return config if config.is_a?(Array)
+
+      config.map do |name, options|
+        options[QUEUE_NAME_KEY] = name
+        options
+      end
+    end
+
+    def fetch_and_delete_key(options, key)
+      options.delete(key) || fail(InvalidConfigError, "#{key} not found in #{options.inspect}")
     end
   end
 end

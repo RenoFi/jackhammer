@@ -36,7 +36,15 @@ default: &default
     auto_delete: false
     durable: true
     queues:
+      # queue_name => options pairs
       americas.south:
+        auto_delete: true
+        durable: false
+        exclusive: false
+        handler: "MyApp::SouthAmericaHandler"
+        routing_key: "americas.south.#"
+      # or an array
+      - queue_name: americas.south
         auto_delete: true
         durable: false
         exclusive: false
