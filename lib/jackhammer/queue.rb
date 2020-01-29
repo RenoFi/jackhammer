@@ -2,10 +2,10 @@ module Jackhammer
   class Queue
     attr_reader :queue, :handler_object
 
-    def initialize(topic:, queue:, handler:, routing:)
+    def initialize(topic:, queue:, handler:, routing_key:)
       @topic = topic
       @queue = queue
-      @queue.bind @topic, routing_key: routing
+      @queue.bind @topic, routing_key: routing_key
       @handler_object = handler
     end
 

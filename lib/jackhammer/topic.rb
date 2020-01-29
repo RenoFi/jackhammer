@@ -25,10 +25,10 @@ module Jackhammer
 
       @queues = queue_config.map do |options|
         handler = MessageReceiver.new(options.delete('handler'))
-        routing = fetch_and_delete_key(options, ROUTING_KEY_KEY)
-        name = options.delete(QUEUE_NAME_KEY) || name_from_routing(routing)
+        routing_key = fetch_and_delete_key(options, ROUTING_KEY_KEY)
+        name = options.delete(QUEUE_NAME_KEY) || name_from_routing_key(routing_key)
         queue = Jackhammer.channel.queue(name, options)
-        Queue.new(topic: topic, queue: queue, handler: handler, routing: routing)
+        Queue.new(topic: topic, queue: queue, handler: handler, routing_key: routing_key)
       end
     end
 
@@ -53,9 +53,9 @@ module Jackhammer
       options.delete(key) || fail(InvalidConfigError, "#{key} not found in #{options.inspect}")
     end
 
-    def name_from_routing(routing)
-      fail(InvalidConfigError, "app_name must be set to determine queue name from routing") unless app_name
-      "#{app_name}.#{routing}"
+    def name_from_routing_key(routing_key)
+      fail(InvalidConfigError, "app_name must be set to determine queue_name from routing_key") unless app_name
+      "#{app_name}.#{routing_key}"
     end
   end
 end
