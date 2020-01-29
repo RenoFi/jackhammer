@@ -26,8 +26,9 @@ module Jackhammer
       @queues = queue_config.map do |options|
         handler = MessageReceiver.new(options.delete('handler'))
         routing_key = fetch_and_delete_key(options, ROUTING_KEY_KEY)
-        name = options.delete(QUEUE_NAME_KEY) || name_from_routing_key(routing_key)
-        queue = Jackhammer.channel.queue(name, options)
+        queue_name = options.delete(QUEUE_NAME_KEY) || name_from_routing_key(routing_key)
+        queue = Jackhammer.channel.queue(queue_name, options)
+        Log.info { "'#{queue_name}' configured to subscribe on '#{routing_key}'" }
         Queue.new(topic: topic, queue: queue, handler: handler, routing_key: routing_key)
       end
     end

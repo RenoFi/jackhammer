@@ -4,7 +4,12 @@ RSpec.describe Jackhammer::TopicManager do
 
     let(:yaml) { {} }
     let(:app_name) { 'test_app' }
-    let(:config_double) { instance_double(Jackhammer::Configuration, yaml: yaml, app_name: app_name) }
+    let(:config_double) do
+      instance_double(Jackhammer::Configuration,
+        yaml: yaml,
+        app_name: app_name,
+        logger: Logger.new(IO::NULL))
+    end
 
     before do
       allow(Jackhammer).to receive(:configuration) { config_double }
