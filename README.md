@@ -36,6 +36,7 @@ default: &default
     auto_delete: false
     durable: true
     queues:
+      # queue_name => options pairs
       americas.south:
         auto_delete: true
         durable: false
@@ -48,6 +49,19 @@ default: &default
         exclusive: false
         handler: "MyApp::NorthAmericaHandler"
         routing_key: "americas.north.#"
+      # or an array
+      - queue_name: americas.south
+        auto_delete: true
+        durable: false
+        exclusive: false
+        handler: "MyApp::SouthAmericaHandler"
+        routing_key: "americas.south.#"
+      # queue_name can be skipped and auto generated from routing key
+      - auto_delete: true
+        durable: false
+        exclusive: false
+        handler: "MyApp::SouthAmericaHandler"
+        routing_key: "americas.south.#"
 
 development:
   <<: *default
@@ -76,6 +90,7 @@ module MyApp
       config.logger             = Logger.new(IO::NULL)
       config.publish_options    = { mandatory: true, persistent: true }
       config.yaml_config        = "config/jackhammer.yml"
+      config.app_name           = "my_app"
     end
   end
 end

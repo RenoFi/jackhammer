@@ -1,6 +1,7 @@
 module Jackhammer
   class Configuration
     attr_accessor(
+      :app_name,
       :connection_options,
       :connection_url,
       :environment,
