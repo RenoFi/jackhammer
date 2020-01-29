@@ -6,7 +6,6 @@ module Jackhammer
     def initialize(name:, options:, queue_config:)
       @topic = Jackhammer.channel.topic name, options
       @queue_config = normalize_queue_config(queue_config)
-      @app_name = Jackhammer.configuration.app_name
     end
 
     def subscribe_queues
@@ -26,7 +25,7 @@ module Jackhammer
       @queues = queue_config.map do |options|
         handler = MessageReceiver.new(options.delete('handler'))
         routing_key = fetch_and_delete_key(options, ROUTING_KEY_KEY)
-        queue_name = options.delete(QUEUE_NAME_KEY) || name_from_routing_key(routing_key)
+        queue_name = options.delete(QUEUE_NAME_KEY) || QueueName.from_routing_key(routing_key)
         queue = Jackhammer.channel.queue(queue_name, options)
         Log.info { "'#{queue_name}' configured to subscribe on '#{routing_key}'" }
         Queue.new(topic: topic, queue: queue, handler: handler, routing_key: routing_key)
@@ -35,7 +34,7 @@ module Jackhammer
 
     private
 
-    attr_reader :topic, :queue_config, :app_name
+    attr_reader :topic, :queue_config
 
     # `queue_config` can be either:
     # - an array of options containing `queue_name` key
@@ -52,11 +51,6 @@ module Jackhammer
 
     def fetch_and_delete_key(options, key)
       options.delete(key) || fail(InvalidConfigError, "#{key} not found in #{options.inspect}")
-    end
-
-    def name_from_routing_key(routing_key)
-      fail(InvalidConfigError, "app_name must be set to determine queue_name from routing_key") unless app_name
-      "#{app_name}.#{routing_key}"
     end
   end
 end

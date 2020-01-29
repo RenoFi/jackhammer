@@ -98,34 +98,7 @@ RSpec.describe Jackhammer::TopicManager do
           expect(subject).to be_a Hash
           expect(subject[:my_topic]).to be_a Jackhammer::Topic
           expect(subject[:my_topic].queues).not_to be_empty
-          expect(subject[:my_topic].queues.first.queue.name).to eq('test_app.first_queue.event.#')
-        end
-      end
-
-      context 'having no queue name specified and no app_name provided' do
-        let(:app_name) { nil }
-
-        let(:yaml) do
-          {
-            'my_topic' => {
-              'arguments' => true,
-              'auto_delete' => true,
-              'durable' => true,
-              'queues' => [
-                # no queue_name
-                'durable' => true,
-                'auto_delete' => false,
-                'handler' => 'FakeClient',
-                'routing_key' => 'first_queue.event.#'
-              ]
-            }
-          }
-        end
-
-        specify do
-          expect(subject).to be_a Hash
-          expect(subject[:my_topic]).to be_a Jackhammer::Topic
-          expect { subject[:my_topic].queues }.to raise_error(InvalidConfigError)
+          expect(subject[:my_topic].queues.first.queue.name).to eq('test_app_first_queue_event_q')
         end
       end
     end
