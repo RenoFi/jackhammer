@@ -38,7 +38,7 @@ module Jackhammer
       @topics ||= TopicManager.topics
     end
 
-    def publish_options(options = {}, time: Time.now.utc)
+    def publish_options(options = {}, time = Time.now.utc)
       configuration.publish_options.dup.merge(options).tap do |opts|
         opts[:timestamp] = time.to_i
         opts[:app_id] ||= configuration.app_name
