@@ -4,9 +4,9 @@ RSpec.describe Jackhammer::QueueName do
   end
 
   describe '.from_routing_key' do
-    let(:routing_key) { 'food.burgers.#' }
-
     subject(:queue_name) { described_class.from_routing_key(routing_key) }
+
+    let(:routing_key) { 'food.burgers.#' }
 
     context 'when app_name is set' do
       let(:app_name) { 'test-app' }

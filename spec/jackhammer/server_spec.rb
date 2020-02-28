@@ -1,12 +1,18 @@
 RSpec.describe Jackhammer::Server do
   describe '.configure' do
     context 'when class TestApp < Jackhammer::Server' do
-      it 'sets Jackhammer.configuration.server to TestApp' do
-        class TestApp < Jackhammer::Server
-          configure do |jack|
-          end
+      let(:test_app) do
+        Class.new(described_class)
+      end
+
+      before do
+        test_app.configure do |jack|
+          # do nothing
         end
-        expect(Jackhammer.configuration.server).to eq TestApp
+      end
+
+      it 'sets Jackhammer.configuration.server to test_app' do
+        expect(Jackhammer.configuration.server).to eq test_app
       end
     end
   end

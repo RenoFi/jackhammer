@@ -50,7 +50,7 @@ RSpec.describe Jackhammer::TopicManager do
     end
 
     context 'when configuration yaml defines queues as array' do
-      context 'having queue name specified' do
+      context 'given queue name specified' do
         let(:yaml) do
           {
             'my_topic' => {
@@ -76,7 +76,7 @@ RSpec.describe Jackhammer::TopicManager do
         end
       end
 
-      context 'having no queue name specified' do
+      context 'given no queue name specified' do
         let(:yaml) do
           {
             'my_topic' => {
