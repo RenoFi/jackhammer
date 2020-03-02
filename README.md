@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/jackhammer.svg)](https://rubygems.org/gems/jackhammer)
 [![Build Status](https://travis-ci.org/RenoFi/jackhammer.svg?branch=master)](https://travis-ci.org/RenoFi/jackhammer)
 [![GitHub issues](https://img.shields.io/github/issues/renofi/jackhammer)](https://github.com/renofi/jackhammer/issues)
 [![GitHub license](https://img.shields.io/github/license/renofi/jackhammer)](https://github.com/RenoFi/jackhammer/blob/master/LICENSE.txt)
@@ -180,7 +181,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/renofi
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Jackhammer project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/renofi/jackhammer/blob/master/CODE_OF_CONDUCT.md).
