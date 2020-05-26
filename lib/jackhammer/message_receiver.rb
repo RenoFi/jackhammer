@@ -15,6 +15,8 @@ module Jackhammer
       else
         handler.call message
       end
+    ensure
+      ActiveRecord::Base.clear_active_connections! if defined?(ActiveRecord::Base)
     end
   end
 end

@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'active_record'
 require 'jackhammer'
 require 'jackhammer/cli'
 require 'bunny-mock'
