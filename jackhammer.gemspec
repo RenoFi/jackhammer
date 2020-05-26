@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'bunny', '~> 2.14'
 
+  spec.add_development_dependency 'activerecord'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'bunny-mock'
   spec.add_development_dependency 'byebug'
