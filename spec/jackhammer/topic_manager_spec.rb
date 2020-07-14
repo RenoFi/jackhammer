@@ -58,11 +58,11 @@ RSpec.describe Jackhammer::TopicManager do
               'auto_delete' => true,
               'durable' => true,
               'queues' => [
-                'queue_name' => 'first_queue',
+                { 'queue_name' => 'first_queue',
                 'durable' => true,
                 'auto_delete' => false,
                 'handler' => 'FakeClient',
-                'routing_key' => 'first_queue.event.#'
+                'routing_key' => 'first_queue.event.#' }
               ]
             }
           }
@@ -85,10 +85,10 @@ RSpec.describe Jackhammer::TopicManager do
               'durable' => true,
               'queues' => [
                 # no queue_name
-                'durable' => true,
+                { 'durable' => true,
                 'auto_delete' => false,
                 'handler' => 'FakeClient',
-                'routing_key' => 'first_queue.event.#'
+                'routing_key' => 'first_queue.event.#' }
               ]
             }
           }
@@ -111,10 +111,10 @@ RSpec.describe Jackhammer::TopicManager do
             'auto_delete' => true,
             'durable' => true,
             'queues' => [
-              'queue_name' => 'first_queue',
+              { 'queue_name' => 'first_queue',
               'durable' => true,
               'auto_delete' => false,
-              'handler' => 'FakeClient',
+              'handler' => 'FakeClient' },
               # no routing_key
             ]
           }

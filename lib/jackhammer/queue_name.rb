@@ -7,7 +7,7 @@ module Jackhammer
     def self.from_routing_key(routing_key)
       fail(InvalidConfigError, "app_name must be set to determine queue_name from routing_key") if app_name.to_s.empty?
 
-      "#{app_name}_#{routing_key}_q".gsub(/[^\w]+/, '_').gsub(/[_]+/, '_')
+      "#{app_name}_#{routing_key}_q".gsub(/[^\w]+/, '_').squeeze('_')
     end
   end
 end
