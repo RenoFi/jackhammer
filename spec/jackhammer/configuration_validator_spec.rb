@@ -13,13 +13,15 @@ RSpec.describe Jackhammer::ConfigurationValidator do
     context 'with valid YAML' do
       before do
         validator.environment = 'production'
-        validator.config_yaml = YAML.safe_load <<~YAML
+        validator.config_yaml = YAML.safe_load <<~YAML, [], [], true
           ---
-          production:
+          default: &default
             MyTopic:
               queues:
                 - routing_key: 'weather.chicago'
                   handler: TestChicagoWeatherHandler
+          production:
+            <<: *default
         YAML
         validator.validate
       end

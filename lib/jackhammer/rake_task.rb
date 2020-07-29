@@ -39,7 +39,7 @@ module Jackhammer
       desc @description
       task @name => Array(deps) do
         validator = ConfigurationValidator.new
-        validator.config_yaml = YAML.safe_load(File.read(@path))
+        validator.config_yaml = YAML.safe_load(File.read(@path), [], [], true)
         validator.environment = env
         validator.validate
         print_results validator.errors
