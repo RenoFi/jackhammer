@@ -22,6 +22,7 @@ module Jackhammer
     attr_accessor :env
 
     def initialize
+      super
       @name = :jackhammer
       @env = 'production'
       @path = './config/jackhammer.yml'

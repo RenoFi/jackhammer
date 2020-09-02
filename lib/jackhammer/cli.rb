@@ -5,7 +5,7 @@ module Jackhammer
     attr_reader :logger, :opts
 
     def initialize(options = {})
-      @logger = Logger.new STDERR
+      @logger = Logger.new $stderr
       @opts = { require: './config/environment' }.merge(options)
     end
 
