@@ -15,7 +15,9 @@ module Jackhammer
     # We're expecting the client to specify at least the routing_key in options
     # for each message published.
     def publish(message, options)
-      topic.publish message, Jackhammer.publish_options(options)
+      Jackhammer.client_middleware.call(message, Jackhammer.publish_options(options)) do |msg, opts|
+        topic.publish msg, opts
+      end
     end
 
     def queues
