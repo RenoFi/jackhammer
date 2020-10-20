@@ -25,6 +25,10 @@ RSpec.describe Jackhammer::MiddlewareCollection do
     it 'calls the passed in block' do
       expect { |block| middleware.call(:foo, bar: 123, &block) }.to yield_with_args(:foo, bar: 123)
     end
+
+    it 'returns the value from the block' do
+      expect(middleware.call(:foo, bar: 123) { 'result' }).to eq('result')
+    end
   end
 
   context 'with some middleware specified' do
@@ -46,6 +50,10 @@ RSpec.describe Jackhammer::MiddlewareCollection do
 
     it 'executes the middleware in the same order as they were added' do
       expect { |block| middleware.call(:foo, bar: 123, &block) }.to yield_with_args(:foo, bar: 123, baz: 3)
+    end
+
+    it 'returns the value from the block' do
+      expect(middleware.call(:foo, bar: 123) { 'result' }).to eq('result')
     end
   end
 
