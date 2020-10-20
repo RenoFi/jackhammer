@@ -2,6 +2,7 @@ module Jackhammer
   class Configuration
     attr_accessor(
       :app_name,
+      :client_middleware,
       :connection_options,
       :connection_url,
       :environment,
@@ -9,6 +10,7 @@ module Jackhammer
       :logger,
       :publish_options,
       :server,
+      :server_middleware,
       :yaml_config
     )
 
@@ -20,6 +22,8 @@ module Jackhammer
       @logger = Logger.new IO::NULL
       @publish_options = { mandatory: true, persistent: true }
       @yaml_config = './config/jackhammer.yml'
+      @client_middleware = MiddlewareCollection.new
+      @server_middleware = MiddlewareCollection.new
     end
 
     def self.instance

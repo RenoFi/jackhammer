@@ -13,7 +13,15 @@ module Jackhammer
       queue.subscribe do |delivery_info, properties, content|
         Log.info { [delivery_info.inspect, properties.inspect].join(' || ') }
         Log.debug { content }
-        handler_object.call content
+
+        Jackhammer.server_middleware.call(
+          handler: handler_object,
+          delivery_info: delivery_info,
+          properties: properties,
+          content: content
+        ) do |**args|
+          args.fetch(:handler).call args.fetch(:content)
+        end
       rescue StandardError => e
         Log.error e
         Jackhammer.configuration.exception_adapter.call e

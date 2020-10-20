@@ -90,6 +90,8 @@ module MyApp
       config.publish_options    = { mandatory: true, persistent: true }
       config.yaml_config        = "config/jackhammer.yml"
       config.app_name           = "my_app"
+      config.client_middleware.use MyClientMiddleware, some_arg: 1, other_arg: 2
+      config.server_middleware.use MyServerMiddleware
     end
   end
 end
@@ -162,9 +164,46 @@ The intent of the options might not be obvious by looking at the name.
   overridden by passing the same options as arguments in your code).
 - **yaml_config** defines the file location of the Topic Exchange YAML
   configuration file.
+- **client_middleware** defines hooks that will be executed prior to publishing a message to a topic
+- **server_middleware** defines hooks that will be executed prior to running the message handler
 
 You can find defaults specified in the Jackhammer::Configuration class
 constructor.
+
+### Middleware
+
+Middleware allows you to hook into message publishing (client) and handling (server).
+
+It can be used to transform the passed in arguments before passing them along or to halt the execution completely.
+The execution will be halted if the middleware instance does not yield.
+
+#### Example client middleware
+
+```ruby
+class MyClientMiddleware
+  def initialize(name)
+    @name = name
+  end
+  
+  def call(message, options)
+    options[:headers][:hello] = @name
+
+    yield message, options
+  end
+end
+```
+
+#### Example server middleware
+
+```ruby
+class MyServerMiddleware
+  def call(handler:, delivery_info:, properties:, content:)
+    puts "Hello, #{properties[:headers]['name']}!"
+
+    yield handler: handler, delivery_info: delivery_info, properties: properties, content: content
+  end
+end
+```
 
 ## Development
 

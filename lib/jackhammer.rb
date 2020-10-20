@@ -7,6 +7,7 @@ require 'jackhammer/exceptions'
 require 'jackhammer/log'
 require 'jackhammer/configuration'
 require 'jackhammer/message_receiver'
+require 'jackhammer/middleware_collection'
 require 'jackhammer/queue_name'
 require 'jackhammer/queue'
 require 'jackhammer/topic'
@@ -45,6 +46,14 @@ module Jackhammer
         opts[:headers] ||= {}
         opts[:headers][:time] ||= time.iso8601
       end
+    end
+
+    def client_middleware
+      configuration.client_middleware
+    end
+
+    def server_middleware
+      configuration.server_middleware
     end
   end
 end
