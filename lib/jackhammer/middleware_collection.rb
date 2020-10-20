@@ -9,12 +9,13 @@ module Jackhammer
     end
 
     def call(*args)
-      return yield *args if @entries.empty?
+      return yield(*args) if @entries.empty?
 
       middlewares = @entries.map(&:instantiate)
+
       traverse = proc do |*arguments|
         if middlewares.empty?
-          yield *arguments
+          yield(*arguments)
         else
           middleware = middlewares.shift
           middleware.call(*arguments, &traverse)

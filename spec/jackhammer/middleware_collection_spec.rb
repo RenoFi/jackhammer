@@ -8,8 +8,7 @@ RSpec.describe Jackhammer::MiddlewareCollection do
       end
 
       def call(foo, opts)
-        opts[:baz] = @value
-        yield foo, opts
+        yield foo, opts.merge(baz: @value)
       end
     end
   end
@@ -62,12 +61,12 @@ RSpec.describe Jackhammer::MiddlewareCollection do
     end
   end
 
-  context 'it accepts singleton/non-class middleware' do
+  context 'with singleton/non-class middleware' do
     before do
       middleware.use(proc { |name, opts, &block| block.call(name, opts.merge(hello: 'from proc')) })
     end
 
-    it 'does not execute the block' do
+    it 'uses the given proc as-is and does not try to call new on it' do
       expect { |block| middleware.call(:foo, bar: 123, &block) }.to yield_with_args(:foo, bar: 123, hello: 'from proc')
     end
   end
