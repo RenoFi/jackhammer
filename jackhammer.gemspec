@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.6'
 
-  spec.add_dependency 'bunny', '~> 2.14'
+  spec.add_dependency 'bunny', '~> 2.17'
 
   spec.add_development_dependency 'activerecord'
   spec.add_development_dependency 'bundler'
@@ -34,5 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop-rake'
   spec.add_development_dependency 'rubocop-rspec'
 end
