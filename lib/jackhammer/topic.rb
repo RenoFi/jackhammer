@@ -3,8 +3,8 @@ module Jackhammer
     QUEUE_NAME_KEY = 'queue_name'.freeze
     ROUTING_KEY_KEY = 'routing_key'.freeze
 
-    def initialize(name:, options:, queue_config:)
-      @topic = Jackhammer.channel.topic name, options
+    def initialize(name:, queue_config:, options: {})
+      @topic = Jackhammer.channel.topic(name, options)
       @queue_config = normalize_queue_config(queue_config)
     end
 
