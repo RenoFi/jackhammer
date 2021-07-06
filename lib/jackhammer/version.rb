@@ -1,3 +1,3 @@
 module Jackhammer
-  VERSION = '1.5.0.rc'.freeze
+  VERSION = '1.5.0'.freeze
 end
