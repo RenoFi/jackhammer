@@ -3,14 +3,6 @@ RSpec.describe Jackhammer do
     expect(Jackhammer::VERSION).not_to be nil
   end
 
-  it 'has singleton access to a Jackhammer::Configuration object' do
-    expect(described_class.configuration).to eq(described_class.configuration)
-  end
-
-  it 'has singleton access to a Bunny::Channel object' do
-    expect(described_class.channel).to eq(described_class.channel)
-  end
-
   it 'has singleton access to a Bunny::Session object' do
     expect(described_class.connection).to be_a BunnyMock::Session
   end
