@@ -1,5 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/jackhammer.svg)](https://rubygems.org/gems/jackhammer)
-[![Build Status](https://travis-ci.org/RenoFi/jackhammer.svg?branch=master)](https://travis-ci.org/RenoFi/jackhammer)
+[![Build Status](https://github.com/RenoFi/jackhammer/actions/workflows/ci.yml/badge.svg)](https://github.com/RenoFi/jackhammer/actions/workflows/ci.yml?query=branch%3Amain)
 
 # jackhammer
 
