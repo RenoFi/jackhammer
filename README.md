@@ -1,6 +1,11 @@
 [![Gem Version](https://badge.fury.io/rb/jackhammer.svg)](https://rubygems.org/gems/jackhammer)
 [![Build Status](https://github.com/RenoFi/jackhammer/actions/workflows/ci.yml/badge.svg)](https://github.com/RenoFi/jackhammer/actions/workflows/ci.yml?query=branch%3Amain)
 
+## !!! NO LONGER MAINTANED !!!
+
+RenoFi moved to Google Pub/Sub and doesn't use rabbitmmq/jackhammer anymore.
+
+
 # jackhammer
 
 `jackhammer` is an opinionated, configurable facade over the RabbitMQ Bunny
