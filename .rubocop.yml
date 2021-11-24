@@ -11,9 +11,7 @@ AllCops:
 
 Gemspec/RequiredRubyVersion:
   Include:
-    - 2.7
     - 3.0
 
-Naming/FileName:
-  Exclude:
-    - 'lib/*.rb'
+Style/StderrPuts:
+  Enabled: false

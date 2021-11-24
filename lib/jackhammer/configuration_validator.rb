@@ -9,10 +9,13 @@ module Jackhammer
     def validate
       validate_environment_defined
       return if errors.any?
+
       validate_topic_exchange_defined
       return if errors.any?
+
       validate_queues_defined
       return if errors.any?
+
       validate_handlers_defined
     end
 
