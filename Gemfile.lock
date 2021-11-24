@@ -95,6 +95,7 @@ DEPENDENCIES
   rubocop
   rubocop-rake
   rubocop-rspec
+  set
 
 BUNDLED WITH
    2.2.29
