@@ -68,7 +68,7 @@ GEM
     rubocop-rspec (2.6.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
-    set (1.0.2)
+    set (1.0.1)
     sorted_set (1.0.3)
       rbtree
       set (~> 1.0)
@@ -95,7 +95,7 @@ DEPENDENCIES
   rubocop
   rubocop-rake
   rubocop-rspec
-  set
+  set (= 1.0.1)
 
 BUNDLED WITH
    2.2.29
